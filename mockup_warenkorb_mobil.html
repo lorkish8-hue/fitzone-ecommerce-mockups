@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitZone – Warenkorb (Mobil)</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#111;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:40px 20px}
+.phone{width:375px;max-width:100%;background:#1a1a1a;border-radius:40px;border:4px solid #333;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 2px #222;overflow:hidden}
+.phone-notch{position:sticky;top:0;z-index:100;height:44px;background:#1a1a1a;display:flex;align-items:center;justify-content:center}
+.phone-notch::before{content:'';width:120px;height:28px;background:#111;border-radius:0 0 16px 16px}
+.phone-bottom{height:20px;background:#1a1a1a;display:flex;justify-content:center;align-items:center}
+.phone-bottom::before{content:'';width:120px;height:4px;background:#444;border-radius:4px}
+.phone-screen{overflow-y:auto;max-height:812px;background:#1a1a1a;color:#fff;line-height:1.5;font-size:14px}
+.nav{position:sticky;top:0;z-index:50;background:#2D2D2D;border-bottom:2px solid #A8E10C;padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:1.3rem;font-weight:800;letter-spacing:2px}
+.logo span{color:#A8E10C}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-cart{position:relative;font-size:1.1rem}
+.nav-cart-badge{position:absolute;top:-6px;right:-8px;background:#A8E10C;color:#2D2D2D;font-size:.55rem;font-weight:700;width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.hamburger{display:flex;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer}
+.hamburger span{width:22px;height:2px;background:#fff;display:block}
+.cart-page{padding:20px 16px}
+.cart-page h1{font-size:1.4rem;font-weight:700;margin-bottom:4px}
+.cart-subtitle{color:#888;font-size:.82rem;margin-bottom:20px}
+.cart-item{display:grid;grid-template-columns:72px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid #333;align-items:start}
+.cart-item:first-child{border-top:1px solid #333}
+.item-img{width:72px;height:72px;border-radius:10px;background:linear-gradient(135deg,#333,#444);display:flex;align-items:center;justify-content:center;font-size:.55rem;color:#666;text-transform:uppercase}
+.item-details h3{font-size:.9rem;font-weight:600;margin-bottom:2px}
+.item-meta{color:#888;font-size:.75rem;margin-bottom:8px}
+.item-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.qty-control{display:flex;align-items:center;border:2px solid #444;border-radius:6px;overflow:hidden}
+.qty-control button{width:32px;height:32px;background:#2D2D2D;border:none;color:#fff;font-size:.9rem;cursor:pointer}
+.qty-control input{width:36px;height:32px;text-align:center;background:#1a1a1a;border:none;color:#fff;font-size:.82rem;font-weight:600}
+.remove-btn{background:none;border:none;color:#666;font-size:.75rem;cursor:pointer}
+.item-price{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;padding-top:4px}
+.item-unit-price{color:#888;font-size:.75rem}
+.item-subtotal{font-size:1rem;font-weight:700;color:#A8E10C}
+.continue-shopping{display:inline-flex;align-items:center;gap:6px;margin-top:16px;color:#888;font-size:.82rem;text-decoration:none}
+.cart-summary{background:#2D2D2D;border-radius:14px;padding:20px;margin-top:24px}
+.cart-summary h2{font-size:1.05rem;font-weight:700;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #444}
+.summary-row{display:flex;justify-content:space-between;margin-bottom:10px;font-size:.88rem}
+.summary-row.muted{color:#888}
+.shipping-note{background:rgba(168,225,12,.08);border:1px solid rgba(168,225,12,.2);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.75rem;color:#A8E10C;text-align:center}
+.shipping-progress{height:4px;background:#444;border-radius:2px;margin-top:6px;overflow:hidden}
+.shipping-progress-fill{height:100%;background:#A8E10C;border-radius:2px;width:90%}
+.divider{border:none;border-top:1px solid #444;margin:16px 0}
+.summary-total{display:flex;justify-content:space-between;font-size:1.15rem;font-weight:700;margin-bottom:18px}
+.total-price{color:#A8E10C;font-size:1.3rem}
+.coupon-section{margin-bottom:16px}
+.coupon-toggle{background:none;border:none;color:#888;font-size:.8rem;cursor:pointer;padding:0;margin-bottom:8px}
+.coupon-form{display:flex;gap:6px}
+.coupon-form input{flex:1;padding:8px 10px;background:#1a1a1a;border:2px solid #444;border-radius:6px;color:#fff;font-size:.82rem;outline:none}
+.coupon-form input::placeholder{color:#555}
+.coupon-form button{padding:8px 14px;background:#444;border:none;border-radius:6px;color:#fff;font-weight:600;font-size:.78rem;cursor:pointer}
+.btn-checkout{width:100%;padding:14px;background:#A8E10C;color:#2D2D2D;border:none;border-radius:10px;font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;margin-bottom:12px}
+.payment-methods{display:flex;justify-content:center;gap:8px;padding-top:12px;border-top:1px solid #444;flex-wrap:wrap}
+.payment-method{background:#1a1a1a;padding:4px 10px;border-radius:4px;font-size:.65rem;color:#888;font-weight:600}
+.secure-note{text-align:center;color:#555;font-size:.7rem;margin-top:8px}
+.footer{background:#2D2D2D;padding:24px 16px 16px;margin-top:30px}
+.footer-col{margin-bottom:14px}
+.footer-col h4{font-size:.78rem;text-transform:uppercase;letter-spacing:2px;color:#A8E10C;margin-bottom:8px}
+.footer-col a,.footer-col p{display:block;color:#888;font-size:.8rem;margin-bottom:4px;text-decoration:none}
+.footer-bottom{border-top:1px solid #444;padding-top:12px;text-align:center;color:#555;font-size:.72rem}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="phone-notch"></div>
+  <div class="phone-screen">
+    <nav class="nav"><div class="logo">FIT<span>ZONE</span></div><div class="nav-right"><div class="nav-cart">&#128722;<span class="nav-cart-badge">2</span></div><button class="hamburger"><span></span><span></span><span></span></button></div></nav>
+    <div class="cart-page">
+      <h1>Dein Warenkorb</h1>
+      <p class="cart-subtitle">2 Artikel in deinem Warenkorb</p>
+      <div class="cart-item"><div class="item-img">Bild</div><div class="item-details"><h3>FitZone Performance T-Shirt</h3><div class="item-meta">Schwarz &middot; Gr&ouml;&szlig;e M</div><div class="item-actions"><div class="qty-control"><button>&minus;</button><input type="text" value="1" readonly><button>+</button></div><button class="remove-btn">&#10005; Entfernen</button></div></div><div class="item-price"><span class="item-unit-price">29,95 &euro; / St&uuml;ck</span><span class="item-subtotal">29,95 &euro;</span></div></div>
+      <div class="cart-item"><div class="item-img">Bild</div><div class="item-details"><h3>Protein Riegel Set (12 St.)</h3><div class="item-meta">Gemischte Box</div><div class="item-actions"><div class="qty-control"><button>&minus;</button><input type="text" value="1" readonly><button>+</button></div><button class="remove-btn">&#10005; Entfernen</button></div></div><div class="item-price"><span class="item-unit-price">14,99 &euro; / St&uuml;ck</span><span class="item-subtotal">14,99 &euro;</span></div></div>
+      <a href="#" class="continue-shopping">&larr; Weiter einkaufen</a>
+      <div class="cart-summary">
+        <h2>Bestell&uuml;bersicht</h2>
+        <div class="summary-row muted"><span>Zwischensumme</span><span>44,94 &euro;</span></div>
+        <div class="summary-row muted"><span>Versandkosten</span><span>4,95 &euro;</span></div>
+        <div class="shipping-note">Noch <strong>5,06 &euro;</strong> bis zum kostenlosen Versand!<div class="shipping-progress"><div class="shipping-progress-fill"></div></div></div>
+        <hr class="divider">
+        <div class="summary-total"><span>Gesamtsumme</span><span class="total-price">49,89 &euro;</span></div>
+        <div class="coupon-section"><button class="coupon-toggle" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='flex'?'none':'flex'">+ Gutscheincode eingeben</button><div class="coupon-form" style="display:none"><input type="text" placeholder="Gutscheincode"><button>Einl&ouml;sen</button></div></div>
+        <button class="btn-checkout">Zur Kasse</button>
+        <div class="payment-methods"><span class="payment-method">VISA</span><span class="payment-method">MASTERCARD</span><span class="payment-method">PAYPAL</span><span class="payment-method">KLARNA</span></div>
+        <div class="secure-note"><strong>&#128274;</strong> Sichere SSL-Verschl&uuml;sselung</div>
+      </div>
+    </div>
+    <footer class="footer"><div class="footer-col"><div style="font-size:1.2rem;font-weight:800;letter-spacing:2px;margin-bottom:6px">FIT<span style="color:#A8E10C">ZONE</span></div></div><div class="footer-col"><h4>Rechtliches</h4><a>Impressum</a><a>Datenschutz</a></div><div class="footer-bottom">&copy; 2026 FitZone.</div></footer>
+  </div>
+  <div class="phone-bottom"></div>
+</div>
+</body>
+</html>

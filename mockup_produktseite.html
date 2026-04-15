@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitZone Performance T-Shirt | FitZone Shop</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#1a1a1a;color:#fff;line-height:1.6}
+a{text-decoration:none;color:#fff;transition:color .3s}
+a:hover{color:#A8E10C}
+nav{position:sticky;top:0;z-index:1000;background:#2D2D2D;border-bottom:2px solid #A8E10C;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:70px;box-shadow:0 2px 20px rgba(0,0,0,.5)}
+.logo{font-size:1.6rem;font-weight:800;letter-spacing:2px}
+.logo span{color:#A8E10C}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:4px 0;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:#A8E10C;transition:width .3s}
+.nav-links a:hover::after{width:100%}
+.nav-cart{position:relative;font-size:1.2rem;cursor:pointer}
+.nav-cart-badge{position:absolute;top:-8px;right:-10px;background:#A8E10C;color:#2D2D2D;font-size:.65rem;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.mobile-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none}
+.mobile-toggle span{width:25px;height:2px;background:#fff}
+.breadcrumb{padding:20px 40px;font-size:.85rem;color:#888}
+.breadcrumb a{color:#888}
+.breadcrumb a:hover{color:#A8E10C}
+.breadcrumb .sep{margin:0 8px;color:#555}
+.breadcrumb .current{color:#A8E10C}
+.product-section{max-width:1200px;margin:0 auto 60px;padding:0 40px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.product-image{aspect-ratio:1;border-radius:16px;background:linear-gradient(135deg,#2D2D2D 0%,#3a3a3a 25%,#A8E10C 50%,#3a3a3a 75%,#2D2D2D 100%);background-size:400% 400%;animation:shimmer 6s ease infinite;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.product-image::after{content:'Produktbild';position:absolute;background:rgba(0,0,0,.3);padding:12px 24px;border-radius:8px;font-weight:600;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:3px}
+.product-thumbs{display:flex;gap:12px;margin-top:16px}
+.product-thumbs div{width:80px;height:80px;border-radius:8px;background:linear-gradient(135deg,#3a3a3a,#555);border:2px solid transparent;cursor:pointer;transition:border-color .3s}
+.product-thumbs div:hover,.product-thumbs div.active{border-color:#A8E10C}
+.product-info h1{font-size:2rem;font-weight:700;margin-bottom:8px}
+.product-brand{color:#A8E10C;font-weight:600;font-size:.9rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
+.product-price{font-size:2.2rem;font-weight:800;color:#A8E10C;margin-bottom:20px}
+.product-price .vat{font-size:.8rem;color:#888;font-weight:400;margin-left:8px}
+.product-desc{color:#ccc;margin-bottom:30px;font-size:.95rem;line-height:1.8}
+.product-features{list-style:none;margin-bottom:30px}
+.product-features li{padding:6px 0;color:#bbb;font-size:.9rem}
+.product-features li::before{content:'\2713';color:#A8E10C;font-weight:700;margin-right:10px}
+.selector-group{margin-bottom:24px}
+.selector-label{font-weight:600;font-size:.9rem;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
+.size-options,.color-options{display:flex;gap:10px;flex-wrap:wrap}
+.size-btn,.color-btn{padding:10px 20px;border:2px solid #444;border-radius:8px;background:transparent;color:#fff;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .3s}
+.size-btn:hover,.size-btn.active{border-color:#A8E10C;background:rgba(168,225,12,.1);color:#A8E10C}
+.color-btn:hover,.color-btn.active{border-color:#A8E10C;color:#A8E10C}
+.qty-cart{display:flex;gap:16px;align-items:center;margin-bottom:30px;flex-wrap:wrap}
+.qty-control{display:flex;align-items:center;border:2px solid #444;border-radius:8px;overflow:hidden}
+.qty-control button{width:44px;height:44px;background:#2D2D2D;border:none;color:#fff;font-size:1.2rem;cursor:pointer;transition:background .3s}
+.qty-control button:hover{background:#A8E10C;color:#2D2D2D}
+.qty-control input{width:50px;height:44px;text-align:center;background:#1a1a1a;border:none;color:#fff;font-size:1rem;font-weight:600}
+.btn-cart{flex:1;min-width:200px;padding:14px 32px;background:#A8E10C;color:#2D2D2D;border:none;border-radius:8px;font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:all .3s}
+.btn-cart:hover{background:#bfff1a;box-shadow:0 4px 20px rgba(168,225,12,.4);transform:translateY(-2px)}
+.trust-badges{display:flex;gap:24px;padding-top:20px;border-top:1px solid #333;flex-wrap:wrap}
+.trust-badge{font-size:.8rem;color:#888}
+.trust-badge strong{color:#A8E10C}
+.reviews-section{max-width:1200px;margin:0 auto 60px;padding:0 40px}
+.section-title{font-size:1.6rem;font-weight:700;margin-bottom:30px;position:relative;padding-bottom:12px}
+.section-title::after{content:'';position:absolute;bottom:0;left:0;width:60px;height:3px;background:#A8E10C;border-radius:2px}
+.reviews-summary{display:flex;align-items:center;gap:20px;margin-bottom:30px;padding:20px;background:#2D2D2D;border-radius:12px}
+.avg-rating{font-size:3rem;font-weight:800;color:#A8E10C}
+.avg-stars{color:#A8E10C;font-size:1.2rem;letter-spacing:2px}
+.avg-text{color:#888;font-size:.85rem}
+.review-card{background:#2D2D2D;border-radius:12px;padding:24px;margin-bottom:16px}
+.review-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.review-author{font-weight:600}
+.review-stars{color:#A8E10C;letter-spacing:2px}
+.review-date{color:#666;font-size:.8rem}
+.review-text{color:#bbb;font-size:.9rem;line-height:1.7}
+.review-verified{color:#A8E10C;font-size:.75rem;font-weight:600;margin-top:8px}
+.crosssell-section{max-width:1200px;margin:0 auto 80px;padding:0 40px}
+.crosssell-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.crosssell-card{background:#2D2D2D;border-radius:12px;overflow:hidden;transition:transform .3s;cursor:pointer}
+.crosssell-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.crosssell-img{height:220px;background:linear-gradient(135deg,#333,#444);display:flex;align-items:center;justify-content:center;color:#666;font-size:.85rem;text-transform:uppercase;letter-spacing:2px}
+.crosssell-info{padding:20px}
+.crosssell-info h3{font-size:1rem;font-weight:600;margin-bottom:8px}
+.crosssell-info .price{color:#A8E10C;font-weight:700;font-size:1.1rem}
+footer{background:#2D2D2D;padding:60px 40px 30px;margin-top:80px}
+.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-col h4{font-size:.85rem;text-transform:uppercase;letter-spacing:2px;color:#A8E10C;margin-bottom:16px}
+.footer-col a{display:block;color:#888;font-size:.85rem;margin-bottom:10px}
+.footer-col a:hover{color:#A8E10C}
+.footer-bottom{border-top:1px solid #444;padding-top:20px;text-align:center;color:#555;font-size:.8rem}
+@media(max-width:992px){.product-section{grid-template-columns:1fr;gap:40px}.crosssell-grid{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){nav{padding:0 20px}.nav-links{display:none;position:absolute;top:70px;left:0;right:0;background:#2D2D2D;flex-direction:column;padding:20px;gap:16px;border-bottom:2px solid #A8E10C}.nav-links.open{display:flex}.mobile-toggle{display:flex}.breadcrumb,.product-section,.reviews-section,.crosssell-section{padding-left:20px;padding-right:20px}.crosssell-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">FIT<span>ZONE</span></div>
+  <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')"><span></span><span></span><span></span></button>
+  <ul class="nav-links"><li><a href="#">Kurse</a></li><li><a href="#">Shop</a></li><li><a href="#">&Uuml;ber uns</a></li><li><a href="#">Kontakt</a></li></ul>
+  <div class="nav-cart">&#128722;<span class="nav-cart-badge">2</span></div>
+</nav>
+<div class="breadcrumb"><a href="#">Shop</a><span class="sep">&#8250;</span><a href="#">Sportkleidung</a><span class="sep">&#8250;</span><span class="current">FitZone Performance T-Shirt</span></div>
+<section class="product-section">
+  <div>
+    <div class="product-image"></div>
+    <div class="product-thumbs"><div class="active"></div><div></div><div></div><div></div></div>
+  </div>
+  <div class="product-info">
+    <div class="product-brand">FitZone Collection</div>
+    <h1>FitZone Performance T-Shirt</h1>
+    <div class="product-price">29,95 &euro;<span class="vat">inkl. MwSt.</span></div>
+    <p class="product-desc">Unser meistverkauftes Performance T-Shirt vereint maximalen Komfort mit sportlicher Eleganz. Hergestellt aus atmungsaktivem, feuchtigkeitsableitendem Funktionsmaterial.</p>
+    <ul class="product-features"><li>Atmungsaktives Quick-Dry Material</li><li>Antibakteriell &amp; geruchshemmend</li><li>4-Wege-Stretch f&uuml;r maximale Bewegungsfreiheit</li><li>Flachn&auml;hte gegen Scheuern</li><li>Reflektierende Logo-Details</li></ul>
+    <div class="selector-group"><div class="selector-label">Gr&ouml;&szlig;e</div><div class="size-options"><button class="size-btn" onclick="selectSize(this)">S</button><button class="size-btn active" onclick="selectSize(this)">M</button><button class="size-btn" onclick="selectSize(this)">L</button><button class="size-btn" onclick="selectSize(this)">XL</button></div></div>
+    <div class="selector-group"><div class="selector-label">Farbe</div><div class="color-options"><button class="color-btn active" onclick="selectColor(this)">Schwarz</button><button class="color-btn" onclick="selectColor(this)">Grau</button><button class="color-btn" onclick="selectColor(this)">Lime</button></div></div>
+    <div class="qty-cart"><div class="qty-control"><button onclick="changeQty(-1)">&minus;</button><input type="text" id="qty" value="1" readonly><button onclick="changeQty(1)">+</button></div><button class="btn-cart">In den Warenkorb</button></div>
+    <div class="trust-badges"><div class="trust-badge"><strong>&#10003;</strong> Kostenloser Versand ab 50&euro;</div><div class="trust-badge"><strong>&#10003;</strong> 30 Tage R&uuml;ckgabe</div><div class="trust-badge"><strong>&#10003;</strong> Sichere Zahlung</div></div>
+  </div>
+</section>
+<section class="reviews-section">
+  <h2 class="section-title">Kundenbewertungen</h2>
+  <div class="reviews-summary"><div><div class="avg-rating">4.7</div><div class="avg-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div><div><div style="font-weight:600">Basierend auf 47 Bewertungen</div><div class="avg-text">93% der Kunden empfehlen dieses Produkt</div></div></div>
+  <div class="review-card"><div class="review-header"><div><span class="review-author">Markus T.</span><span class="review-date" style="margin-left:12px">14.02.2026</span></div><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div><p class="review-text">Absolut geniales Shirt! Das Material f&uuml;hlt sich hochwertig an und trocknet super schnell. Klare Kaufempfehlung!</p><div class="review-verified">&#10003; Verifizierter Kauf</div></div>
+  <div class="review-card"><div class="review-header"><div><span class="review-author">Sandra K.</span><span class="review-date" style="margin-left:12px">02.01.2026</span></div><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div></div><p class="review-text">Sehr gute Qualit&auml;t f&uuml;r den Preis. Das Lime-Gr&uuml;n sieht in echt noch besser aus. Gr&ouml;&szlig;e f&auml;llt etwas kleiner aus.</p><div class="review-verified">&#10003; Verifizierter Kauf</div></div>
+</section>
+<section class="crosssell-section">
+  <h2 class="section-title">Kunden kauften auch</h2>
+  <div class="crosssell-grid">
+    <div class="crosssell-card"><div class="crosssell-img">Produktbild</div><div class="crosssell-info"><h3>FitZone Training Shorts</h3><div class="price">34,95 &euro;</div></div></div>
+    <div class="crosssell-card"><div class="crosssell-img">Produktbild</div><div class="crosssell-info"><h3>Protein Riegel Set (12 St&uuml;ck)</h3><div class="price">14,99 &euro;</div></div></div>
+    <div class="crosssell-card"><div class="crosssell-img">Produktbild</div><div class="crosssell-info"><h3>FitZone Gym Bag</h3><div class="price">39,95 &euro;</div></div></div>
+  </div>
+</section>
+<footer><div class="footer-grid"><div><div class="logo">FIT<span>ZONE</span></div></div><div class="footer-col"><h4>Shop</h4><a href="#">Sportkleidung</a><a href="#">Nahrungserg&auml;nzung</a></div><div class="footer-col"><h4>Service</h4><a href="#">Versand</a><a href="#">R&uuml;ckgabe</a><a href="#">Gr&ouml;&szlig;entabelle</a></div><div class="footer-col"><h4>Rechtliches</h4><a href="#">Impressum</a><a href="#">Datenschutz</a><a href="#">AGB</a></div></div><div class="footer-bottom">&copy; 2026 FitZone. Alle Rechte vorbehalten.</div></footer>
+<script>
+function selectSize(el){document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active')}
+function selectColor(el){document.querySelectorAll('.color-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active')}
+function changeQty(d){const q=document.getElementById('qty');let v=parseInt(q.value)+d;if(v<1)v=1;if(v>99)v=99;q.value=v}
+</script>
+</body>
+</html>
