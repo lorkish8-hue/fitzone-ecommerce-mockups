@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitZone – Dein Fitnessstudio</title>
+<style>
+*, *::before, *::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#2D2D2D;color:#fff;line-height:1.6}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+.nav{position:sticky;top:0;z-index:1000;background:rgba(25,25,25,.95);backdrop-filter:blur(10px);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;border-bottom:1px solid rgba(168,225,12,.15)}
+.nav-logo{font-size:1.6rem;font-weight:800;letter-spacing:-1px;color:#A8E10C}
+.nav-logo span{color:#fff}
+.nav-links{display:flex;align-items:center;gap:1.8rem;list-style:none}
+.nav-links a{font-size:.92rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#A8E10C}
+.nav-cta{background:#A8E10C;color:#1a1a1a;border:none;padding:.55rem 1.2rem;border-radius:6px;font-weight:700;font-size:.85rem;cursor:pointer}
+.nav-cart{font-size:1.25rem;cursor:pointer;position:relative}
+.nav-cart::after{content:'2';position:absolute;top:-6px;right:-8px;background:#A8E10C;color:#1a1a1a;font-size:.6rem;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:26px;height:3px;background:#fff;border-radius:2px}
+.hero{min-height:92vh;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#1a1a1a 0%,#2D2D2D 40%,#3a3a2a 70%,#2D2D2D 100%);position:relative;overflow:hidden;padding:2rem}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(168,225,12,.08) 0%,transparent 70%),radial-gradient(ellipse 50% 50% at 20% 80%,rgba(168,225,12,.05) 0%,transparent 60%)}
+.hero-content{position:relative;max-width:750px}
+.hero-badge{display:inline-block;background:rgba(168,225,12,.12);color:#A8E10C;font-size:.78rem;font-weight:600;padding:.35rem 1rem;border-radius:50px;margin-bottom:1.5rem;letter-spacing:.5px;border:1px solid rgba(168,225,12,.2)}
+.hero h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;line-height:1.15;margin-bottom:1.2rem}
+.hero h1 .accent{color:#A8E10C}
+.hero p{font-size:1.1rem;color:#bbb;max-width:540px;margin:0 auto 2rem}
+.btn-primary{display:inline-block;background:#A8E10C;color:#1a1a1a;padding:.85rem 2.2rem;border-radius:8px;font-weight:700;font-size:1rem;border:none;cursor:pointer;transition:transform .2s,background .2s}
+.btn-primary:hover{background:#8ec200;transform:translateY(-2px)}
+section{padding:5rem 2rem}
+.section-title{text-align:center;font-size:2rem;font-weight:800;margin-bottom:.6rem}
+.section-title .accent{color:#A8E10C}
+.section-sub{text-align:center;color:#999;max-width:520px;margin:0 auto 3rem;font-size:.95rem}
+.kurse{background:#252525}
+.kurse-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
+.kurs-card{background:#2D2D2D;border-radius:14px;overflow:hidden;transition:transform .25s,box-shadow .25s;border:1px solid #3a3a3a}
+.kurs-card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.kurs-img{height:180px;display:flex;align-items:flex-end;padding:1rem;position:relative}
+.kurs-img.bodyfit{background:linear-gradient(135deg,#A8E10C 0%,#5a8800 100%)}
+.kurs-img.zumba{background:linear-gradient(135deg,#ff6b6b 0%,#c0392b 100%)}
+.kurs-img.yoga{background:linear-gradient(135deg,#74b9ff 0%,#0984e3 100%)}
+.kurs-img.kranking{background:linear-gradient(135deg,#fdcb6e 0%,#e17055 100%)}
+.kurs-img-label{background:rgba(0,0,0,.55);padding:.3rem .7rem;border-radius:4px;font-size:.75rem;font-weight:600}
+.kurs-body{padding:1.2rem}
+.kurs-body h3{font-size:1.15rem;margin-bottom:.3rem}
+.kurs-body .kurs-meta{color:#999;font-size:.82rem;margin-bottom:1rem}
+.kurs-body .kurs-meta span{color:#A8E10C;font-weight:600}
+.btn-sm{display:inline-block;background:transparent;color:#A8E10C;border:2px solid #A8E10C;padding:.45rem 1.1rem;border-radius:6px;font-weight:600;font-size:.82rem;cursor:pointer;transition:.2s}
+.btn-sm:hover{background:#A8E10C;color:#1a1a1a}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:960px;margin:0 auto}
+.product-card{background:#333;border-radius:14px;overflow:hidden;border:1px solid #3f3f3f;transition:transform .25s}
+.product-card:hover{transform:translateY(-4px)}
+.product-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:3rem}
+.product-img.riegel{background:linear-gradient(135deg,#6c5ce7,#a29bfe)}
+.product-img.shirt{background:linear-gradient(135deg,#00cec9,#81ecec)}
+.product-img.band{background:linear-gradient(135deg,#e17055,#fab1a0)}
+.product-body{padding:1.2rem}
+.product-body h3{margin-bottom:.25rem;font-size:1.05rem}
+.product-body .price{color:#A8E10C;font-weight:700;font-size:1.15rem;margin-bottom:.8rem}
+.btn-cart{width:100%;background:#A8E10C;color:#1a1a1a;border:none;padding:.6rem;border-radius:6px;font-weight:700;font-size:.88rem;cursor:pointer;transition:background .2s}
+.btn-cart:hover{background:#8ec200}
+.trainer{background:#252525}
+.trainer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;max-width:860px;margin:0 auto;text-align:center}
+.trainer-card{padding:1.5rem}
+.trainer-photo{width:140px;height:140px;border-radius:50%;margin:0 auto 1.2rem;border:3px solid #A8E10C;display:flex;align-items:center;justify-content:center;font-size:2.5rem;font-weight:700;color:#2D2D2D}
+.trainer-photo.t1{background:linear-gradient(135deg,#A8E10C,#6ab300)}
+.trainer-photo.t2{background:linear-gradient(135deg,#74b9ff,#0984e3)}
+.trainer-photo.t3{background:linear-gradient(135deg,#ff6b6b,#ee5a24)}
+.trainer-card h3{font-size:1.1rem;margin-bottom:.2rem}
+.trainer-card .specialty{color:#A8E10C;font-size:.85rem;font-weight:600;margin-bottom:.5rem}
+.trainer-card p{color:#999;font-size:.85rem}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;max-width:860px;margin:0 auto}
+.blog-card{background:#333;border-radius:14px;overflow:hidden;border:1px solid #3f3f3f;transition:transform .25s}
+.blog-card:hover{transform:translateY(-4px)}
+.blog-img{height:180px}
+.blog-img.b1{background:linear-gradient(135deg,#2D2D2D,#A8E10C 180%)}
+.blog-img.b2{background:linear-gradient(135deg,#2D2D2D,#74b9ff 180%)}
+.blog-body{padding:1.3rem}
+.blog-body .blog-date{color:#A8E10C;font-size:.75rem;font-weight:600;margin-bottom:.5rem}
+.blog-body h3{font-size:1.05rem;margin-bottom:.5rem;line-height:1.35}
+.blog-body p{color:#999;font-size:.85rem;margin-bottom:1rem}
+.blog-link{color:#A8E10C;font-weight:600;font-size:.88rem}
+.footer{background:#1a1a1a;padding:3.5rem 2rem 1.5rem;border-top:1px solid rgba(168,225,12,.1)}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;max-width:1100px;margin:0 auto 2.5rem}
+.footer h4{color:#A8E10C;font-size:.95rem;margin-bottom:1rem}
+.footer p,.footer li{color:#999;font-size:.88rem}
+.footer ul{list-style:none}
+.footer li{margin-bottom:.5rem}
+.social-icons{display:flex;gap:.8rem;margin-top:.5rem}
+.social-icon{width:36px;height:36px;border-radius:50%;background:#333;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#A8E10C}
+.footer-bottom{text-align:center;padding-top:1.5rem;border-top:1px solid #333;color:#666;font-size:.8rem}
+.footer-bottom a{color:#999;margin:0 .6rem}
+@media(max-width:768px){.nav{padding:0 1rem}.nav-links{position:fixed;top:70px;left:0;right:0;bottom:0;background:rgba(25,25,25,.98);flex-direction:column;justify-content:center;gap:1.8rem;transform:translateX(100%);transition:transform .35s ease}.nav-links.open{transform:translateX(0)}.hamburger{display:flex}.hero h1{font-size:2rem}section{padding:3.5rem 1.2rem}.section-title{font-size:1.6rem}.blog-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="#" class="nav-logo">Fit<span>Zone</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#kurse">Kurse</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#ueber">&Uuml;ber uns</a></li>
+    <li><a href="#trainer">Trainer</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+    <li><button class="nav-cta">Jetzt Mitglied werden</button></li>
+  </ul>
+  <span class="nav-cart" title="Warenkorb">&#128722;</span>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <span class="hero-badge">&#9889; Jetzt 7 Tage kostenlos testen</span>
+    <h1>Dein Weg. Deine Community.<br>Dein <span class="accent">FitZone</span>.</h1>
+    <p>Erlebe modernes Training in einer motivierenden Atmosph&auml;re. &Uuml;ber 50 Kurse pro Woche, erstklassige Trainer und eine Community, die dich pusht.</p>
+    <button class="btn-primary">Probetraining buchen</button>
+  </div>
+</section>
+<section class="kurse" id="kurse">
+  <h2 class="section-title">Unsere <span class="accent">Kurse</span></h2>
+  <p class="section-sub">Von High-Intensity bis Entspannung &ndash; bei uns findest du den perfekten Kurs f&uuml;r deine Ziele.</p>
+  <div class="kurse-grid">
+    <div class="kurs-card"><div class="kurs-img bodyfit"><span class="kurs-img-label">Beliebt</span></div><div class="kurs-body"><h3>Body Fit</h3><p class="kurs-meta">Mo, Mi, Fr &middot; <span>18:00&ndash;19:00</span></p><button class="btn-sm">Jetzt buchen</button></div></div>
+    <div class="kurs-card"><div class="kurs-img zumba"></div><div class="kurs-body"><h3>Zumba</h3><p class="kurs-meta">Di, Do &middot; <span>17:30&ndash;18:30</span></p><button class="btn-sm">Jetzt buchen</button></div></div>
+    <div class="kurs-card"><div class="kurs-img yoga"></div><div class="kurs-body"><h3>Yoga Flow</h3><p class="kurs-meta">Mo&ndash;Fr &middot; <span>07:00&ndash;08:00</span></p><button class="btn-sm">Jetzt buchen</button></div></div>
+    <div class="kurs-card"><div class="kurs-img kranking"></div><div class="kurs-body"><h3>Kranking</h3><p class="kurs-meta">Mi, Sa &middot; <span>10:00&ndash;11:00</span></p><button class="btn-sm">Jetzt buchen</button></div></div>
+  </div>
+</section>
+<section id="shop">
+  <h2 class="section-title">Shop <span class="accent">Highlights</span></h2>
+  <p class="section-sub">Ausgew&auml;hlte Produkte f&uuml;r dein Training.</p>
+  <div class="shop-grid">
+    <div class="product-card"><div class="product-img riegel">&#127851;</div><div class="product-body"><h3>Protein Riegel Mix-Box</h3><p class="price">24,99 &euro;</p><button class="btn-cart">In den Warenkorb</button></div></div>
+    <div class="product-card"><div class="product-img shirt">&#128085;</div><div class="product-body"><h3>FitZone Sport T-Shirt</h3><p class="price">34,99 &euro;</p><button class="btn-cart">In den Warenkorb</button></div></div>
+    <div class="product-card"><div class="product-img band">&#128170;</div><div class="product-body"><h3>Resistance Band Set</h3><p class="price">19,99 &euro;</p><button class="btn-cart">In den Warenkorb</button></div></div>
+  </div>
+</section>
+<section class="trainer" id="trainer">
+  <h2 class="section-title">Unsere <span class="accent">Trainer</span></h2>
+  <div class="trainer-grid">
+    <div class="trainer-card"><div class="trainer-photo t1">LS</div><h3>Laura Schneider</h3><p class="specialty">Functional Training &amp; Ern&auml;hrung</p><p>8 Jahre Erfahrung.</p></div>
+    <div class="trainer-card"><div class="trainer-photo t2">MK</div><h3>Max K&ouml;nig</h3><p class="specialty">Kraft &amp; Kondition</p><p>Ehemaliger Leistungssportler.</p></div>
+    <div class="trainer-card"><div class="trainer-photo t3">SB</div><h3>Sofia Becker</h3><p class="specialty">Yoga &amp; Mobility</p><p>Zertifizierte Yogalehrerin.</p></div>
+  </div>
+</section>
+<section id="blog">
+  <h2 class="section-title">Aus dem <span class="accent">Blog</span></h2>
+  <div class="blog-grid">
+    <article class="blog-card"><div class="blog-img b1"></div><div class="blog-body"><p class="blog-date">5. M&auml;rz 2026</p><h3>5 Tipps f&uuml;r mehr Motivation im Winter-Training</h3><a href="#" class="blog-link">Weiterlesen &rarr;</a></div></article>
+    <article class="blog-card"><div class="blog-img b2"></div><div class="blog-body"><p class="blog-date">21. Februar 2026</p><h3>Meal Prep f&uuml;r Sportler</h3><a href="#" class="blog-link">Weiterlesen &rarr;</a></div></article>
+  </div>
+</section>
+<footer class="footer" id="kontakt">
+  <div class="footer-grid">
+    <div><h4>FitZone</h4><p>Dein modernes Fitnessstudio im Herzen der Stadt.</p></div>
+    <div><h4>Kontakt</h4><ul><li>Musterstra&szlig;e 12</li><li>10115 Berlin</li><li>Tel: 030 123 456 78</li><li>info@fitzone.de</li></ul></div>
+    <div><h4>&Ouml;ffnungszeiten</h4><ul><li>Mo&ndash;Fr: 06:00&ndash;23:00</li><li>Sa&ndash;So: 08:00&ndash;21:00</li></ul></div>
+    <div><h4>Links</h4><ul><li><a href="#">Kurse &amp; Zeitplan</a></li><li><a href="#">Mitgliedschaft</a></li><li><a href="#">FAQ</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 FitZone. <a href="#">Impressum</a> <a href="#">Datenschutz</a></p></div>
+</footer>
+<script>
+const h=document.getElementById('hamburger'),n=document.getElementById('navLinks');
+h.addEventListener('click',()=>{n.classList.toggle('open');h.classList.toggle('active')});
+n.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{n.classList.remove('open');h.classList.remove('active')}));
+</script>
+</body>
+</html>

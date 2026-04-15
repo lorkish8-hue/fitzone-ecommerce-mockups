@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warenkorb | FitZone Shop</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#1a1a1a;color:#fff;line-height:1.6}
+a{text-decoration:none;color:#fff;transition:color .3s}
+a:hover{color:#A8E10C}
+nav{position:sticky;top:0;z-index:1000;background:#2D2D2D;border-bottom:2px solid #A8E10C;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:70px;box-shadow:0 2px 20px rgba(0,0,0,.5)}
+.logo{font-size:1.6rem;font-weight:800;letter-spacing:2px}
+.logo span{color:#A8E10C}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:4px 0;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:#A8E10C;transition:width .3s}
+.nav-links a:hover::after{width:100%}
+.nav-cart{position:relative;font-size:1.2rem;cursor:pointer}
+.nav-cart-badge{position:absolute;top:-8px;right:-10px;background:#A8E10C;color:#2D2D2D;font-size:.65rem;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.mobile-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none}
+.mobile-toggle span{width:25px;height:2px;background:#fff}
+.cart-page{max-width:1200px;margin:40px auto 80px;padding:0 40px}
+.cart-page h1{font-size:2rem;font-weight:700;margin-bottom:8px}
+.cart-subtitle{color:#888;font-size:.9rem;margin-bottom:40px}
+.cart-layout{display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:start}
+.cart-items{display:flex;flex-direction:column;gap:0}
+.cart-item{display:grid;grid-template-columns:100px 1fr auto;gap:24px;align-items:center;padding:24px 0;border-bottom:1px solid #333}
+.cart-item:first-child{border-top:1px solid #333}
+.item-img{width:100px;height:100px;border-radius:12px;background:linear-gradient(135deg,#333,#444,#3a3a3a);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#666;text-transform:uppercase;letter-spacing:1px}
+.item-details h3{font-size:1rem;font-weight:600;margin-bottom:4px}
+.item-meta{color:#888;font-size:.8rem;margin-bottom:12px}
+.item-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.qty-control{display:flex;align-items:center;border:2px solid #444;border-radius:8px;overflow:hidden}
+.qty-control button{width:36px;height:36px;background:#2D2D2D;border:none;color:#fff;font-size:1rem;cursor:pointer;transition:background .3s}
+.qty-control button:hover{background:#A8E10C;color:#2D2D2D}
+.qty-control input{width:42px;height:36px;text-align:center;background:#1a1a1a;border:none;color:#fff;font-size:.9rem;font-weight:600}
+.remove-btn{background:none;border:none;color:#666;font-size:.8rem;cursor:pointer;transition:color .3s;padding:4px 8px}
+.remove-btn:hover{color:#ff4444}
+.item-price-col{text-align:right;min-width:100px}
+.item-unit-price{color:#888;font-size:.8rem;margin-bottom:4px}
+.item-subtotal{font-size:1.1rem;font-weight:700;color:#A8E10C}
+.continue-shopping{display:inline-flex;align-items:center;gap:8px;margin-top:30px;color:#888;font-size:.9rem;transition:color .3s}
+.continue-shopping:hover{color:#A8E10C}
+.cart-summary{background:#2D2D2D;border-radius:16px;padding:32px;position:sticky;top:90px}
+.cart-summary h2{font-size:1.2rem;font-weight:700;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #444}
+.summary-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:.95rem}
+.summary-row.muted{color:#888}
+.shipping-note{background:rgba(168,225,12,.08);border:1px solid rgba(168,225,12,.2);border-radius:8px;padding:12px 16px;margin:16px 0;font-size:.8rem;color:#A8E10C;text-align:center}
+.shipping-progress{height:4px;background:#444;border-radius:2px;margin-top:8px;overflow:hidden}
+.shipping-progress-fill{height:100%;background:#A8E10C;border-radius:2px;width:90%;transition:width .5s}
+.divider{border:none;border-top:1px solid #444;margin:20px 0}
+.summary-total{display:flex;justify-content:space-between;align-items:center;font-size:1.3rem;font-weight:700;margin-bottom:24px}
+.summary-total .total-price{color:#A8E10C;font-size:1.5rem}
+.coupon-toggle{background:none;border:none;color:#888;font-size:.85rem;cursor:pointer;transition:color .3s;padding:0;margin-bottom:12px}
+.coupon-toggle:hover{color:#A8E10C}
+.coupon-form{display:flex;gap:8px}
+.coupon-form input{flex:1;padding:10px 14px;background:#1a1a1a;border:2px solid #444;border-radius:8px;color:#fff;font-size:.9rem;outline:none;transition:border-color .3s}
+.coupon-form input:focus{border-color:#A8E10C}
+.coupon-form input::placeholder{color:#555}
+.coupon-form button{padding:10px 18px;background:#444;border:none;border-radius:8px;color:#fff;font-weight:600;font-size:.85rem;cursor:pointer}
+.btn-checkout{width:100%;padding:16px;background:#A8E10C;color:#2D2D2D;border:none;border-radius:10px;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:all .3s;margin-bottom:16px}
+.btn-checkout:hover{background:#bfff1a;box-shadow:0 4px 24px rgba(168,225,12,.4);transform:translateY(-2px)}
+.payment-methods{display:flex;justify-content:center;gap:16px;padding-top:16px;border-top:1px solid #444}
+.payment-method{background:#1a1a1a;padding:6px 14px;border-radius:6px;font-size:.7rem;color:#888;font-weight:600;letter-spacing:.5px}
+.secure-note{text-align:center;color:#555;font-size:.75rem;margin-top:12px}
+footer{background:#2D2D2D;padding:60px 40px 30px;margin-top:80px}
+.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-col h4{font-size:.85rem;text-transform:uppercase;letter-spacing:2px;color:#A8E10C;margin-bottom:16px}
+.footer-col a{display:block;color:#888;font-size:.85rem;margin-bottom:10px}
+.footer-col a:hover{color:#A8E10C}
+.footer-bottom{border-top:1px solid #444;padding-top:20px;text-align:center;color:#555;font-size:.8rem}
+@media(max-width:992px){.cart-layout{grid-template-columns:1fr}.cart-summary{position:static}}
+@media(max-width:768px){nav{padding:0 20px}.nav-links{display:none;position:absolute;top:70px;left:0;right:0;background:#2D2D2D;flex-direction:column;padding:20px;gap:16px;border-bottom:2px solid #A8E10C}.nav-links.open{display:flex}.mobile-toggle{display:flex}.cart-page{padding:0 20px;margin-top:24px}.cart-page h1{font-size:1.5rem}.cart-item{grid-template-columns:80px 1fr;gap:16px}.item-img{width:80px;height:80px}.footer-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">FIT<span>ZONE</span></div>
+  <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')"><span></span><span></span><span></span></button>
+  <ul class="nav-links"><li><a href="#">Kurse</a></li><li><a href="#">Shop</a></li><li><a href="#">&Uuml;ber uns</a></li><li><a href="#">Kontakt</a></li></ul>
+  <div class="nav-cart">&#128722;<span class="nav-cart-badge" id="cartBadge">2</span></div>
+</nav>
+<div class="cart-page">
+  <h1>Dein Warenkorb</h1>
+  <p class="cart-subtitle">2 Artikel in deinem Warenkorb</p>
+  <div class="cart-layout">
+    <div>
+      <div class="cart-items">
+        <div class="cart-item" id="item1">
+          <div class="item-img">Produktbild</div>
+          <div class="item-details"><h3>FitZone Performance T-Shirt</h3><div class="item-meta">Farbe: Schwarz &middot; Gr&ouml;&szlig;e: M</div><div class="item-actions"><div class="qty-control"><button onclick="updateQty('item1',-1)">&minus;</button><input type="text" class="item-qty" value="1" readonly><button onclick="updateQty('item1',1)">+</button></div><button class="remove-btn" onclick="removeItem('item1')">&#10005; Entfernen</button></div></div>
+          <div class="item-price-col"><div class="item-unit-price">29,95 &euro; / St&uuml;ck</div><div class="item-subtotal" data-unit="29.95">29,95 &euro;</div></div>
+        </div>
+        <div class="cart-item" id="item2">
+          <div class="item-img">Produktbild</div>
+          <div class="item-details"><h3>Protein Riegel Set (12 St&uuml;ck)</h3><div class="item-meta">Geschmack: Gemischte Box</div><div class="item-actions"><div class="qty-control"><button onclick="updateQty('item2',-1)">&minus;</button><input type="text" class="item-qty" value="1" readonly><button onclick="updateQty('item2',1)">+</button></div><button class="remove-btn" onclick="removeItem('item2')">&#10005; Entfernen</button></div></div>
+          <div class="item-price-col"><div class="item-unit-price">14,99 &euro; / St&uuml;ck</div><div class="item-subtotal" data-unit="14.99">14,99 &euro;</div></div>
+        </div>
+      </div>
+      <a href="#" class="continue-shopping">&larr; Weiter einkaufen</a>
+    </div>
+    <div class="cart-summary">
+      <h2>Bestell&uuml;bersicht</h2>
+      <div class="summary-row muted"><span>Zwischensumme</span><span id="subtotal">44,94 &euro;</span></div>
+      <div class="summary-row muted"><span>Versandkosten</span><span id="shipping">4,95 &euro;</span></div>
+      <div class="shipping-note" id="shippingNote">Noch <strong id="shippingDiff">5,06 &euro;</strong> bis zum kostenlosen Versand!<div class="shipping-progress"><div class="shipping-progress-fill" id="shippingBar"></div></div></div>
+      <hr class="divider">
+      <div class="summary-total"><span>Gesamtsumme</span><span class="total-price" id="total">49,89 &euro;</span></div>
+      <div class="coupon-section"><button class="coupon-toggle" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='flex'?'none':'flex'">+ Gutscheincode eingeben</button><div class="coupon-form" style="display:none"><input type="text" placeholder="Gutscheincode"><button>Einl&ouml;sen</button></div></div>
+      <button class="btn-checkout">Zur Kasse</button>
+      <div class="payment-methods"><span class="payment-method">VISA</span><span class="payment-method">MASTERCARD</span><span class="payment-method">PAYPAL</span><span class="payment-method">KLARNA</span></div>
+      <div class="secure-note"><strong>&#128274;</strong> Sichere Zahlung mit SSL-Verschl&uuml;sselung</div>
+    </div>
+  </div>
+</div>
+<footer><div class="footer-grid"><div><div class="logo">FIT<span>ZONE</span></div></div><div class="footer-col"><h4>Shop</h4><a href="#">Sportkleidung</a><a href="#">Nahrungserg&auml;nzung</a></div><div class="footer-col"><h4>Service</h4><a href="#">Versand</a><a href="#">R&uuml;ckgabe</a></div><div class="footer-col"><h4>Rechtliches</h4><a href="#">Impressum</a><a href="#">Datenschutz</a></div></div><div class="footer-bottom">&copy; 2026 FitZone.</div></footer>
+<script>
+function fmt(n){return n.toFixed(2).replace('.',',')+' €'}
+function recalc(){let sub=0,count=0;document.querySelectorAll('.cart-item').forEach(item=>{const q=parseInt(item.querySelector('.item-qty').value);const u=parseFloat(item.querySelector('.item-subtotal').dataset.unit);const line=q*u;item.querySelector('.item-subtotal').textContent=fmt(line);sub+=line;count+=q});const ship=sub>=50?0:4.95;const total=sub+ship;document.getElementById('subtotal').textContent=fmt(sub);document.getElementById('shipping').textContent=ship===0?'Kostenlos':fmt(ship);document.getElementById('total').textContent=fmt(total);document.getElementById('cartBadge').textContent=count;document.querySelector('.cart-subtitle').textContent=count+' Artikel in deinem Warenkorb';const note=document.getElementById('shippingNote');if(sub>=50){note.innerHTML='<strong>&#10003; Kostenloser Versand!</strong>'}else{const diff=50-sub;note.innerHTML='Noch <strong>'+fmt(diff)+'</strong> bis zum kostenlosen Versand!<div class="shipping-progress"><div class="shipping-progress-fill" style="width:'+Math.min(sub/50*100,100)+'%"></div></div>'}}
+function updateQty(id,d){const item=document.getElementById(id);const inp=item.querySelector('.item-qty');let v=parseInt(inp.value)+d;if(v<1)v=1;if(v>99)v=99;inp.value=v;recalc()}
+function removeItem(id){const item=document.getElementById(id);item.style.transition='opacity .3s,transform .3s';item.style.opacity='0';item.style.transform='translateX(-20px)';setTimeout(()=>{item.remove();recalc()},300)}
+</script>
+</body>
+</html>

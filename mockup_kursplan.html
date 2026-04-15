@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitZone – Kursplan</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#1a1a1a;color:#fff;line-height:1.6}
+nav{position:sticky;top:0;z-index:1000;background:#2D2D2D;border-bottom:2px solid #A8E10C;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;box-shadow:0 2px 12px rgba(0,0,0,.5)}
+.logo{font-size:1.6rem;font-weight:800;letter-spacing:2px;color:#fff}
+.logo span{color:#A8E10C}
+.nav-links{display:flex;gap:1.6rem;list-style:none}
+.nav-links a{color:#ccc;text-decoration:none;font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;transition:color .2s}
+.nav-links a:hover{color:#A8E10C}
+.burger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px}
+.burger span{display:block;width:26px;height:3px;background:#fff;border-radius:2px}
+.hero{text-align:center;padding:3.5rem 1rem 2rem;background:linear-gradient(135deg,#2D2D2D 0%,#1a1a1a 100%)}
+.hero h1{font-size:2.8rem;font-weight:900;text-transform:uppercase;letter-spacing:3px;margin-bottom:.4rem}
+.hero h1 span{color:#A8E10C}
+.hero p{color:#aaa;font-size:1.05rem;max-width:540px;margin:0 auto}
+.filter-bar{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;padding:1.5rem 1rem;max-width:900px;margin:0 auto}
+.filter-btn{padding:.5rem 1.2rem;border-radius:999px;border:2px solid #444;background:transparent;color:#ccc;font-size:.85rem;font-weight:600;cursor:pointer;transition:.25s}
+.filter-btn:hover,.filter-btn.active{border-color:#A8E10C;color:#A8E10C;background:rgba(168,225,12,.08)}
+.schedule-section{max-width:1200px;margin:0 auto;padding:0 1rem 2rem}
+.schedule-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem}
+.day-column{display:flex;flex-direction:column;gap:.75rem}
+.day-header{background:#A8E10C;color:#1a1a1a;text-align:center;padding:.6rem .4rem;border-radius:8px 8px 0 0;font-weight:800;font-size:.95rem;text-transform:uppercase;letter-spacing:1px}
+.course-card{background:#2D2D2D;border-radius:10px;padding:1rem;border:1px solid #3a3a3a;transition:.3s;display:flex;flex-direction:column;gap:.45rem}
+.course-card:hover{border-color:#A8E10C;transform:translateY(-3px);box-shadow:0 6px 20px rgba(168,225,12,.12)}
+.course-card .course-name{font-weight:700;font-size:1rem;color:#A8E10C}
+.course-card .course-time{font-size:.85rem;color:#bbb}
+.course-card .course-trainer{font-size:.82rem;color:#999}
+.course-card .spots{font-size:.8rem;padding:.2rem .55rem;border-radius:999px;display:inline-block;width:fit-content}
+.spots.available{background:rgba(168,225,12,.15);color:#A8E10C}
+.spots.limited{background:rgba(255,170,0,.15);color:#ffaa00}
+.spots.full{background:rgba(255,60,60,.15);color:#ff5555}
+.book-btn{margin-top:auto;padding:.5rem;border:none;border-radius:6px;background:#A8E10C;color:#1a1a1a;font-weight:700;font-size:.85rem;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;transition:.2s}
+.book-btn:hover{background:#bfff1a}
+.book-btn.disabled{background:#444;color:#777;cursor:not-allowed}
+.empty-slot{background:#232323;border:1px dashed #333;border-radius:10px;min-height:80px;display:flex;align-items:center;justify-content:center;color:#444;font-size:.8rem;font-style:italic}
+footer{background:#2D2D2D;border-top:2px solid #A8E10C;padding:2.5rem 1rem 1.5rem;margin-top:2rem}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem}
+.footer-col h4{color:#A8E10C;font-size:.95rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:.8rem}
+.footer-col p,.footer-col a{color:#999;font-size:.88rem;text-decoration:none;display:block;margin-bottom:.35rem}
+.footer-col a:hover{color:#A8E10C}
+.footer-bottom{max-width:1200px;margin:1.5rem auto 0;padding-top:1rem;border-top:1px solid #3a3a3a;text-align:center;color:#555;font-size:.8rem}
+@media(max-width:800px){.nav-links{display:none}.burger{display:flex}.hero h1{font-size:2rem}.schedule-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">FIT<span>ZONE</span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#">Kurse</a></li><li><a href="#">Shop</a></li><li><a href="#">&Uuml;ber uns</a></li><li><a href="#">Trainer</a></li><li><a href="#">Kontakt</a></li>
+  </ul>
+  <button class="burger" onclick="document.getElementById('navLinks').classList.toggle('open')"><span></span><span></span><span></span></button>
+</nav>
+<section class="hero"><h1>Kurs<span>plan</span></h1><p>Finde den perfekten Kurs f&uuml;r dich &ndash; von kraftvollen Workouts bis entspannendem Yoga.</p></section>
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterCourses('all',this)">Alle</button>
+  <button class="filter-btn" onclick="filterCourses('bodyfit',this)">Body Fit</button>
+  <button class="filter-btn" onclick="filterCourses('yoga',this)">Yoga</button>
+  <button class="filter-btn" onclick="filterCourses('zumba',this)">Zumba</button>
+  <button class="filter-btn" onclick="filterCourses('kranking',this)">Kranking</button>
+  <button class="filter-btn" onclick="filterCourses('balance',this)">Balance Swing</button>
+  <button class="filter-btn" onclick="filterCourses('step',this)">Step Aerobic</button>
+  <button class="filter-btn" onclick="filterCourses('sixpack',this)">Sixpack Training</button>
+</div>
+<section class="schedule-section">
+  <div class="schedule-grid">
+    <div class="day-column">
+      <div class="day-header">Montag</div>
+      <div class="course-card" data-course="bodyfit"><div class="course-name">Body Fit</div><div class="course-time">&#9716; 18:00&ndash;19:00</div><div class="course-trainer">Lisa M&uuml;ller</div><span class="spots available">8/15 Pl&auml;tze frei</span><button class="book-btn">Jetzt buchen</button></div>
+      <div class="course-card" data-course="zumba"><div class="course-name">Zumba</div><div class="course-time">&#9716; 19:15&ndash;20:15</div><div class="course-trainer">Maria Garcia</div><span class="spots available">11/20 Pl&auml;tze frei</span><button class="book-btn">Jetzt buchen</button></div>
+    </div>
+    <div class="day-column">
+      <div class="day-header">Dienstag</div>
+      <div class="course-card" data-course="balance"><div class="course-name">Balance Swing</div><div class="course-time">&#9716; 09:00&ndash;10:00</div><div class="course-trainer">Sophie Weber</div><span class="spots available">6/12 Pl&auml;tze frei</span><button class="book-btn">Jetzt buchen</button></div>
+      <div class="course-card" data-course="kranking"><div class="course-name">Kranking</div><div class="course-time">&#9716; 17:30&ndash;18:30</div><div class="course-trainer">Markus Braun</div><span class="spots limited">3/10 Pl&auml;tze frei</span><button class="book-btn">Jetzt buchen</button></div>
+    </div>
+    <div class="day-column">
+      <div class="day-header">Mittwoch</div>
+      <div class="course-card" data-course="yoga"><div class="course-name">Yoga</div><div class="course-time">&#9716; 08:00&ndash;09:15</div><div class="course-trainer">Anna Schmidt</div><span class="spots available">9/15 Pl&auml;tze frei</span><button class="book-btn">Jetzt buchen</button></div>
+      <div class="course-card" data-course="step"><div class="course-name">Step Aerobic</div><div class="course-time">&#9716; 10:00&ndash;11:00</div><div class="course-trainer">Julia Hoffmann</div><span class="spots limited">2/18 Pl&auml;tze frei</span><button class="book-btn">Jetzt buchen</button></div>
+    </div>
+    <div class="day-column">
+      <div class="day-header">Donnerstag</div>
+      <div class="course-card" data-course="balance"><div class="course-name">Balance Swing</div><div class="course-time">&#9716; 09:00&ndash;10:00</div><div class="course-trainer">Sophie Weber</div><span class="spots available">7/12 Pl&auml;tze frei</span><button class="book-btn">Jetzt buchen</button></div>
+      <div class="course-card" data-course="bodyfit"><div class="course-name">Body Fit</div><div class="course-time">&#9716; 18:00&ndash;19:00</div><div class="course-trainer">Lisa M&uuml;ller</div><span class="spots full">0/15 Pl&auml;tze frei</span><button class="book-btn disabled" disabled>Ausgebucht</button></div>
+    </div>
+    <div class="day-column">
+      <div class="day-header">Freitag</div>
+      <div class="course-card" data-course="sixpack"><div class="course-name">Sixpack Training</div><div class="course-time">&#9716; 17:00&ndash;17:45</div><div class="course-trainer">Markus Braun</div><span class="spots available">10/14 Pl&auml;tze frei</span><button class="book-btn">Jetzt buchen</button></div>
+      <div class="course-card" data-course="zumba"><div class="course-name">Zumba</div><div class="course-time">&#9716; 19:15&ndash;20:15</div><div class="course-trainer">Maria Garcia</div><span class="spots available">14/20 Pl&auml;tze frei</span><button class="book-btn">Jetzt buchen</button></div>
+    </div>
+    <div class="day-column">
+      <div class="day-header">Samstag</div>
+      <div class="course-card" data-course="yoga"><div class="course-name">Yoga</div><div class="course-time">&#9716; 08:00&ndash;09:15</div><div class="course-trainer">Anna Schmidt</div><span class="spots limited">1/15 Pl&auml;tze frei</span><button class="book-btn">Jetzt buchen</button></div>
+      <div class="empty-slot">Kein weiterer Kurs</div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col"><h4>FitZone</h4><p>Dein Premium-Fitnessstudio in der Stadt.</p></div>
+    <div class="footer-col"><h4>&Ouml;ffnungszeiten</h4><p>Mo&ndash;Fr: 06:00&ndash;22:00</p><p>Sa: 08:00&ndash;18:00</p><p>So: 09:00&ndash;14:00</p></div>
+    <div class="footer-col"><h4>Kontakt</h4><p>Fitnessstra&szlig;e 12, 10115 Berlin</p><p>Tel: +49 30 1234567</p></div>
+    <div class="footer-col"><h4>Links</h4><a href="#">Impressum</a><a href="#">Datenschutz</a><a href="#">AGB</a></div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 FitZone. Alle Rechte vorbehalten.</div>
+</footer>
+<script>
+function filterCourses(type,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.course-card').forEach(card=>{
+    card.style.display=(type==='all'||card.dataset.course===type)?'':'none';
+  });
+}
+document.querySelectorAll('.book-btn:not(.disabled)').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    this.textContent='Gebucht!';
+    this.style.background='#4CAF50';this.style.color='#fff';
+    setTimeout(()=>{this.textContent='Jetzt buchen';this.style.background='';this.style.color=''},2000);
+  });
+});
+</script>
+</body>
+</html>
