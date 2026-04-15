@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitZone – E-Commerce Mockups | Wahlpflichtmodul</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1a1a1a; color: #fff; line-height: 1.6; }
+  .header { background: #2D2D2D; border-bottom: 3px solid #A8E10C; padding: 2.5rem 2rem; text-align: center; }
+  .header .logo { font-size: 2.4rem; font-weight: 900; letter-spacing: 3px; }
+  .header .logo span { color: #A8E10C; }
+  .header .subtitle { color: #999; font-size: 1rem; margin-top: .4rem; }
+  .header .badge { display: inline-block; background: rgba(168,225,12,.12); color: #A8E10C; font-size: .78rem; font-weight: 600; padding: .35rem 1.1rem; border-radius: 50px; margin-top: .8rem; border: 1px solid rgba(168,225,12,.25); }
+  .info-box { max-width: 800px; margin: 2rem auto; padding: 0 1.5rem; }
+  .info-card { background: #2D2D2D; border: 1px solid rgba(168,225,12,.2); border-radius: 12px; padding: 1.5rem 2rem; border-left: 4px solid #A8E10C; }
+  .info-card p { color: #ccc; font-size: .95rem; }
+  .info-card strong { color: #A8E10C; }
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; padding-bottom: .6rem; border-bottom: 2px solid #333; }
+  .section-title span { color: #A8E10C; }
+  .mockup-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.4rem; margin-bottom: 3rem; }
+  .mockup-card { background: #2D2D2D; border-radius: 14px; border: 1px solid #3a3a3a; overflow: hidden; transition: transform .25s, box-shadow .25s, border-color .25s; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+  .mockup-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(168,225,12,.1); border-color: rgba(168,225,12,.4); }
+  .card-preview { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; }
+  .card-preview.desktop { background: linear-gradient(135deg, #2a2a2a, #3a3a3a); }
+  .card-preview.mobile { background: linear-gradient(135deg, #111, #222); }
+  .card-preview .device-label { position: absolute; top: 10px; right: 12px; background: rgba(168,225,12,.15); color: #A8E10C; font-size: .68rem; font-weight: 700; padding: .2rem .6rem; border-radius: 20px; border: 1px solid rgba(168,225,12,.3); text-transform: uppercase; letter-spacing: .5px; }
+  .card-body { padding: 1.3rem 1.4rem 1.6rem; flex: 1; }
+  .card-body h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .3rem; }
+  .card-body p { color: #999; font-size: .85rem; margin-bottom: 1rem; }
+  .card-link { display: inline-flex; align-items: center; gap: .4rem; background: #A8E10C; color: #1a1a1a; font-weight: 700; font-size: .82rem; padding: .5rem 1.1rem; border-radius: 6px; text-decoration: none; transition: background .2s; }
+  .card-link:hover { background: #bfff1a; }
+  footer { background: #2D2D2D; border-top: 1px solid #333; text-align: center; padding: 1.5rem; color: #666; font-size: .82rem; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">FIT<span>ZONE</span></div>
+  <div class="subtitle">E-Commerce Projektarbeit &ndash; Website-Mockups</div>
+  <div class="badge">Wahlpflichtmodul E-Commerce &nbsp;&middot;&nbsp; IST-Studieninstitut GmbH</div>
+</header>
+
+<div class="info-box">
+  <div class="info-card">
+    <p>Diese Seite enth&auml;lt alle <strong>interaktiven HTML-Mockups</strong> der FitZone E-Commerce Website. Jeder Mockup ist direkt im Browser aufrufbar &ndash; sowohl die Desktop- als auch die Mobile-Ansicht. Bitte auf die Karten klicken, um den jeweiligen Mockup zu &ouml;ffnen.</p>
+  </div>
+</div>
+
+<main>
+
+  <h2 class="section-title"><span>Desktop</span> Mockups</h2>
+  <div class="mockup-grid">
+
+    <a class="mockup-card" href="mockup_homepage.html">
+      <div class="card-preview desktop">&#127968;<span class="device-label">Desktop</span></div>
+      <div class="card-body">
+        <h3>Homepage</h3>
+        <p>Hero-Bereich, Kurs&uuml;bersicht, Shop-Highlights, Trainer-Profile, Blog und Footer.</p>
+        <span class="card-link">&#9654; Mockup &ouml;ffnen</span>
+      </div>
+    </a>
+
+    <a class="mockup-card" href="mockup_kursplan.html">
+      <div class="card-preview desktop">&#128197;<span class="device-label">Desktop</span></div>
+      <div class="card-body">
+        <h3>Kursplan</h3>
+        <p>Wochenplan mit Filterfunktion, Buchungs-Buttons und Kursdetails.</p>
+        <span class="card-link">&#9654; Mockup &ouml;ffnen</span>
+      </div>
+    </a>
+
+    <a class="mockup-card" href="mockup_produktseite.html">
+      <div class="card-preview desktop">&#128085;<span class="device-label">Desktop</span></div>
+      <div class="card-body">
+        <h3>Produktseite</h3>
+        <p>Produktdetails, Gr&ouml;&szlig;en-/Farbauswahl, Kundenbewertungen, Cross-Selling.</p>
+        <span class="card-link">&#9654; Mockup &ouml;ffnen</span>
+      </div>
+    </a>
+
+    <a class="mockup-card" href="mockup_warenkorb.html">
+      <div class="card-preview desktop">&#128722;<span class="device-label">Desktop</span></div>
+      <div class="card-body">
+        <h3>Warenkorb</h3>
+        <p>Artikel-&Uuml;bersicht, Menge&auml;nderung, Gutscheincode, Bestell&uuml;bersicht &amp; Kasse.</p>
+        <span class="card-link">&#9654; Mockup &ouml;ffnen</span>
+      </div>
+    </a>
+
+  </div>
+
+  <h2 class="section-title"><span>Mobile</span> Mockups</h2>
+  <div class="mockup-grid">
+
+    <a class="mockup-card" href="mockup_homepage_mobil.html">
+      <div class="card-preview mobile">&#128241;<span class="device-label">Mobil</span></div>
+      <div class="card-body">
+        <h3>Homepage (Mobil)</h3>
+        <p>Responsive Smartphone-Ansicht mit Phone-Frame. Vollst&auml;ndige Homepage im Hochformat.</p>
+        <span class="card-link">&#9654; Mockup &ouml;ffnen</span>
+      </div>
+    </a>
+
+    <a class="mockup-card" href="mockup_kursplan_mobil.html">
+      <div class="card-preview mobile">&#128241;<span class="device-label">Mobil</span></div>
+      <div class="card-body">
+        <h3>Kursplan (Mobil)</h3>
+        <p>Kursplan mit Tag-Tabs, Filter-Chips und scrollbarer Kurs-Liste im Phone-Frame.</p>
+        <span class="card-link">&#9654; Mockup &ouml;ffnen</span>
+      </div>
+    </a>
+
+    <a class="mockup-card" href="mockup_produktseite_mobil.html">
+      <div class="card-preview mobile">&#128241;<span class="device-label">Mobil</span></div>
+      <div class="card-body">
+        <h3>Produktseite (Mobil)</h3>
+        <p>Produktdetails, Auswahl, Warenkorb-Button und Bewertungen im Smartphone-Layout.</p>
+        <span class="card-link">&#9654; Mockup &ouml;ffnen</span>
+      </div>
+    </a>
+
+    <a class="mockup-card" href="mockup_warenkorb_mobil.html">
+      <div class="card-preview mobile">&#128241;<span class="device-label">Mobil</span></div>
+      <div class="card-body">
+        <h3>Warenkorb (Mobil)</h3>
+        <p>Warenkorb-Ansicht mit Produktliste, Bestell&uuml;bersicht und Checkout im Phone-Frame.</p>
+        <span class="card-link">&#9654; Mockup &ouml;ffnen</span>
+      </div>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>
+  <p>FitZone E-Commerce Projektarbeit &nbsp;&middot;&nbsp; Wahlpflichtmodul E-Commerce &nbsp;&middot;&nbsp; IST-Studieninstitut GmbH &nbsp;&middot;&nbsp; 2026</p>
+</footer>
+
+</body>
+</html>
